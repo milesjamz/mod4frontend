@@ -13,6 +13,7 @@ class BreweryRender extends React.Component {
     dropdownTypes: []
   }
 
+// --- sets state with brewery data, and makes list of all the types of breweries ---
   componentDidMount() {
     this.setState({ breweries: BreweryList})
     this.setState({ filteredBrews: BreweryList})
@@ -22,11 +23,15 @@ class BreweryRender extends React.Component {
     // console.log(uniqueTypes)
   }
 
+
+// --- makes brewery LIs and puts them in the brewery render area ---
   showBreweries = () => {
     return this.state.filteredBrews.map(brewery => 
       <li key={brewery.id} > <Link key={brewery.id} to={`/brewery/${brewery.id}`}> {brewery.name} </Link> </li> )
   }
 
+
+// --- these two take info from search bar and apply to brewery list --- 
   handleSubmit = (e) => {
     e.preventDefault()
     let myBrews = this.state.breweries.filter(brewery => brewery.name.toLowerCase().includes(this.state.searchField.toLowerCase()) )
@@ -37,11 +42,7 @@ class BreweryRender extends React.Component {
     this.setState({ searchField: e.target.value })
   }
 
-  handleClick = () => {
-    let myTypes = this.state.breweries.map(brewery => brewery.brewery_type)
-        const uniqueTypes = [...new Set(myTypes)]
-  }
-
+// --- handles change in the drop down filter ---
   dropdownChange = (e) => {
     this.setState({ dropdown: e.target.value })
     const typeFilteredBreweries = this.state.breweries.filter(brewery => brewery.brewery_type === e.target.value)
