@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar'
 import BreweryList from './data'
+import { Link } from 'react-router-dom';
 
 class BreweryRender extends React.Component {
 
@@ -8,16 +9,22 @@ class BreweryRender extends React.Component {
     breweries: [],
     searchField: '',
     filteredBrews: [],
-    dropdown: ''
+    dropdown: '',
+    dropdownTypes: []
   }
 
   componentDidMount() {
     this.setState({ breweries: BreweryList})
     this.setState({ filteredBrews: BreweryList})
+    const myTypes = BreweryList.map(brewery => brewery.brewery_type)
+    const uniqueTypes = [...new Set(myTypes)]
+    this.setState({ dropdownTypes: uniqueTypes })
+    // console.log(uniqueTypes)
   }
 
   showBreweries = () => {
-    return this.state.filteredBrews.map(brewery => <li key={brewery.id}> {brewery.name} </li>)
+    return this.state.filteredBrews.map(brewery => 
+      <li key={brewery.id} > <Link key={brewery.id} to={`/brewery/${brewery.id}`}> {brewery.name} </Link> </li> )
   }
 
   handleSubmit = (e) => {
@@ -32,13 +39,12 @@ class BreweryRender extends React.Component {
 
   handleClick = () => {
     let myTypes = this.state.breweries.map(brewery => brewery.brewery_type)
-      console.log(myTypes)
+      // console.log(myTypes)
         const uniqueTypes = [...new Set(myTypes)]
-          console.log(uniqueTypes)
+          // console.log(uniqueTypes)
   }
 
   dropdownChange = (e) => {
-    console.log(e.target.value)
     this.setState({ dropdown: e.target.value })
     const typeFilteredBreweries = this.state.breweries.filter(brewery => brewery.brewery_type === e.target.value)
     e.target.value === 'reset' ? this.setState({ filteredBrews: BreweryList }) : this.setState({ filteredBrews: typeFilteredBreweries })
@@ -51,8 +57,9 @@ class BreweryRender extends React.Component {
       <select value={this.state.dropdown}
               onChange={this.dropdownChange} >
         <option value="reset">Filter by Option</option>
-        <option value="micro">Micro</option>
-        <option value="brewpub">BrewPub</option>
+          {this.state.dropdownTypes.map((typeOption, index) => (
+          <option key={index} value={typeOption}>{typeOption}</option>
+          ))}
       </select>
       <ul>
         {this.showBreweries()}
