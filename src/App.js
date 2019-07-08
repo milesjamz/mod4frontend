@@ -5,20 +5,28 @@ import NavBar from './NavBar'
 import BreweryPage from './BreweryPage'
 import BreweryRender from './BreweryRender'
 import BreweryList from './data'
+import LoginPage from './LoginPage'
 
 class App extends React.Component {
+
+  state = {
+    loggedIn: false
+  }
+
+  logIn = () => {
+    this.setState({ loggedIn: !this.state.loggedIn })
+  }
 
   render() {
 
   return (
     <Router>
       <div className="homepage">
-         <NavBar />
-         <Route exact path='/' render={() => <div>Home</div>} />
-         
-         <BreweryRender />
-
-         <Route exact path='/brewery/:breweryId' render={routerProps => <BreweryPage brewList={BreweryList} {...routerProps} /> } />
+        <NavBar />
+        {this.state.loggedIn ? <BreweryRender /> : <LoginPage logIn={this.logIn} /> }
+        {this.state.loggedIn ? <Route 
+                                  exact path='/brewery/:breweryId' 
+                                  render={routerProps => <BreweryPage brewList={BreweryList} {...routerProps} /> } /> : null }
       </div>
     </Router>
     );

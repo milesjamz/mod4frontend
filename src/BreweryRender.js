@@ -39,9 +39,7 @@ class BreweryRender extends React.Component {
 
   handleClick = () => {
     let myTypes = this.state.breweries.map(brewery => brewery.brewery_type)
-      // console.log(myTypes)
         const uniqueTypes = [...new Set(myTypes)]
-          // console.log(uniqueTypes)
   }
 
   dropdownChange = (e) => {

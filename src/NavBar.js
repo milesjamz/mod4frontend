@@ -3,7 +3,7 @@ import React from 'react';
 function NavBar() {
   return (
     <div className="navbar">
-      This is the NavBar
+      Welcome! LOGIN | SIGNUP | BREWERIES | CREDITS
     </div>
   );
 }

@@ -5,7 +5,6 @@ class SearchBar extends React.Component {
 	render() {
   return (
     <div className="searchbar">
-      This is the search bar
       <form onSubmit={this.props.handleSubmit}>
       	<label>Search by Name:
       	<input type="text"
