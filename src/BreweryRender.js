@@ -1,37 +1,23 @@
 import React from 'react';
 import SearchBar from './SearchBar'
-import BreweryList from './data'
 import { Link } from 'react-router-dom';
 
 class BreweryRender extends React.Component {
 
   state = {
-    breweries: [],
-    firstFilterBrews: [],
-    secondFilterBrews: [],
-    searchField: '',
     dropdown: '',
-    dropdownTypes: [],
     dropdownTwo: '',
-    dropdownTwoTypes: []
-  }
-
-// --- sets state with brewery data, and makes list of all the types of breweries ---
-  componentDidMount() {
-    this.setState({ breweries: BreweryList})
-    this.setState({ firstFilterBrews: BreweryList })
-    this.setState({ secondFilterBrews: BreweryList })
-    const myTypes = BreweryList.map(brewery => brewery.brewery_type)
-    const myStates = BreweryList.map(brewery => brewery.state)
-    this.setState({ dropdownTypes: [...new Set(myTypes)] })
-    this.setState({ dropdownTwoTypes: [...new Set(myStates)] })
+    searchField: '',
+    index: 0,
+    maxIndex: 150
   }
 
 
 // --- makes brewery LIs and puts them in the brewery render area ---
   showBreweries = () => {
-    const allFilteredBrews = this.state.firstFilterBrews.filter(brew => this.state.secondFilterBrews.includes(brew) ) 
-    return allFilteredBrews.map(brewery => 
+    const allFilteredBrews = this.props.firstFilter.filter(brew => this.props.secondFilter.includes(brew) )
+    const currentBrews = allFilteredBrews.slice(this.state.index, this.state.index + 40) 
+    return currentBrews.map(brewery => 
       <li className="brewLink" key={brewery.id} > <Link key={brewery.id} to={`/brewery/${brewery.id}`}> {brewery.name} </Link> </li> )
   }
 
@@ -39,8 +25,7 @@ class BreweryRender extends React.Component {
 // --- these two take info from search bar and apply to brewery list --- 
   handleSubmit = (e) => {
     e.preventDefault()
-    let myBrews = this.state.breweries.filter(brewery => brewery.name.toLowerCase().includes(this.state.searchField.toLowerCase()) )
-    myBrews.length === 0 ? alert('No breweries matched your search!') : this.setState({ firstFilterBrews: myBrews })
+    {this.props.submitProp(this.state.searchField)}
   }
 
   handleOnChange = (e) => {
@@ -48,38 +33,47 @@ class BreweryRender extends React.Component {
   }
 
 // --- handles change in the drop down filter ---
-  dropdownChange = (e) => {
+  dropdownTypeChange = (e) => {
     this.setState({ dropdown: e.target.value })
-    const typeFilteredBreweries = this.state.breweries.filter(brewery => brewery.brewery_type === e.target.value)
-    e.target.value === 'reset' ? this.setState({ firstFilterBrews: BreweryList }) : this.setState({ firstFilterBrews: typeFilteredBreweries })
-  }
+    this.setState({ index: 0 })
+    {this.props.typeChangeProp(e.target.value)}
+   }
 
-  dropdownTwoChange = (e) => {
+  dropdownStateChange = (e) => {
     this.setState({ dropdownTwo: e.target.value })
-    const stateFilteredBreweries = this.state.breweries.filter(brewery => brewery.state === e.target.value)
-    e.target.value === 'reset' ? this.setState({ secondFilterBrews: BreweryList }) : this.setState({ secondFilterBrews: stateFilteredBreweries })
-  }
+    this.setState({ index: 0 })
+    {this.props.stateChangeProp(e.target.value)}
+   }
+
+   showMore = () => {
+    this.state.index >= this.state.maxIndex ? this.setState({ index: 0 }) : this.setState({ index: this.state.index + 50 })
+    console.log(this.state.index)
+    console.log(this.state.maxIndex)
+   }
 
   render() {
   return (
     <div className="breweryrender">
-      <SearchBar handleSubmit={this.handleSubmit} handleOnChange={this.handleOnChange} value={this.state.searchField} />
-      <select value={this.state.dropdownTwo} 
-              onChange={this.dropdownTwoChange} >
+      <SearchBar handleSubmit={this.handleSubmit} 
+                 handleOnChange={this.handleOnChange} 
+                value={this.state.searchField} />
+
+      <select value={this.state.dropdownState} 
+              onChange={this.dropdownStateChange} >
         <option value="reset">Filter By State</option>
-        {this.state.dropdownTwoTypes.map((state, index) => (
+        {this.props.secondDrop.map((state, index) => (
           <option key={index} value={state}>{state}</option>
           ))}
         </select>
 
-      <select value={this.state.dropdown}
-              onChange={this.dropdownChange} >
+      <select value={this.state.dropdownType}
+              onChange={this.dropdownTypeChange} >
         <option value="reset">Filter by Brewery Type</option>
-          {this.state.dropdownTypes.map((typeOption, index) => (
+          {this.props.firstDrop.map((typeOption, index) => (
           <option key={index} value={typeOption}>{typeOption}</option>
           ))}
       </select>
-
+      <button onClick={this.showMore}>Show more Breweries!</button>
       <ul>
         {this.showBreweries()}
       </ul>
