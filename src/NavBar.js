@@ -1,9 +1,9 @@
 import React from 'react';
 
-function NavBar() {
+function NavBar(props) {
   return (
     <div className="navbar">
-      Welcome! LOGIN | SIGNUP | BREWERIES | CREDITS
+      Welcome, {props.user.name}! LOGIN | SIGNUP | BREWERIES | CREDITS
     </div>
   );
 }

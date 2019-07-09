@@ -6,6 +6,7 @@ import BreweryPage from './BreweryPage'
 import BreweryRender from './BreweryRender'
 import BreweryList from './data'
 import LoginPage from './LoginPage'
+import UsersData from './userData'
 
 class App extends React.Component {
 
@@ -22,7 +23,7 @@ class App extends React.Component {
   return (
     <Router>
       <div className="homepage">
-        <NavBar />
+        <NavBar user={UsersData[0]} />
         {this.state.loggedIn ? <BreweryRender /> : <LoginPage logIn={this.logIn} /> }
         {this.state.loggedIn ? <Route 
                                   exact path='/brewery/:breweryId' 
