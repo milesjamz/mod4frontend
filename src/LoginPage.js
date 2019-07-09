@@ -20,7 +20,9 @@ class LoginPage extends React.Component {
     //   .then(data => {
     //     localStorage.setItem("token", data.token);
     //   });
-    {this.props.logIn()}
+    {
+      this.props.logIn();
+    }
   };
 
   handleChange = e => {
@@ -29,23 +31,59 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.username}
-          onChange={this.handleChange}
-          name="username"
-        />
-        <input
-          type="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-          name="password"
-        />
-        <input type="submit" value="Log in!" />
-      </form>
+      <div>
+        <div className="breweryShow">
+          <form onSubmit={this.handleSubmit}>
+            Username
+            <input
+              type="text"
+              value={this.state.username}
+              onChange={this.handleChange}
+              name="username"
+            />
+            Password
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              name="password"
+            />
+            <br />
+            <input type="submit" value="Log in!" />
+          </form>
+        </div>
+
+        <div className="breweryShow">
+          <form onSubmit={this.handleSubmit}>
+            Username
+            <input
+              type="text"
+              value={this.state.username}
+              onChange={this.handleChange}
+              name="username"
+            />
+            Password
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              name="password"
+            />
+            <br />
+            Confirm Password
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              name="password"
+            />
+            <br />
+            <input type="submit" value="Sign Up!" />
+          </form>
+        </div>
+      </div>
     );
   }
 }
 
-export default LoginPage
+export default LoginPage;
