@@ -21,6 +21,13 @@ brewery_id: 44,
 stars: 5,
 content: 'This one was great!'
 },
+{
+id: 4,
+user_id: 2,
+brewery_id: 44,
+stars: 2,
+content: 'This one was gross!'
+},
 ]
 
 export default ReviewData

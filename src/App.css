@@ -11,15 +11,29 @@
   text-align: center;
 }
 
+.review {
+  background-color: pink;
+}
+
+.review:hover {
+  background-color: indianred;
+}
+
+.brewLink:hover {
+  transform: scale(1.1);
+}
+
+
 .breweryrender {
   text-align: center;
   background-color: lightblue;
   border-style: dashed;
-  height: 20%;
+  height: 40%;
   width: 45%;
   margin-left: 10%;
   margin-top: 2%;
-  float: left
+  float: left;
+  overflow: auto;
 }
 
 .breweryShow {
