@@ -3,7 +3,10 @@ import React from "react";
 class LoginPage extends React.Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    newUsername: "",
+    newPassword: "",
+    newConfirmPassword: ""
   };
 
   handleSubmit = e => {
@@ -58,24 +61,24 @@ class LoginPage extends React.Component {
             Username
             <input
               type="text"
-              value={this.state.username}
+              value={this.state.newUsername}
               onChange={this.handleChange}
-              name="username"
+              name="newUsername"
             />
             Password
             <input
               type="password"
-              value={this.state.password}
+              value={this.state.newPassword}
               onChange={this.handleChange}
-              name="password"
+              name="newPassword"
             />
             <br />
             Confirm Password
             <input
               type="password"
-              value={this.state.password}
+              value={this.state.newConfirmPassword}
               onChange={this.handleChange}
-              name="password"
+              name="newConfirmPassword"
             />
             <br />
             <input type="submit" value="Sign Up!" />
