@@ -18,7 +18,7 @@ const BreweryPage = props => {
         {thisOne[0].city}, {thisOne[0].state}.
       </p>
       <a href={thisOne[0].website_url} target="_blank">
-        Visit their website!
+        Visit their website!!
       </a>
       <br />
       <br />
