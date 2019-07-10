@@ -21,7 +21,6 @@ class SignupPage extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         localStorage.setItem("token", data.token);
       });
     // fetch("http://localhost:3000/users")
