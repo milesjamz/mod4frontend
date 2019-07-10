@@ -25,7 +25,6 @@ class LoginPage extends React.Component {
       });
     {
       this.props.logIn();
-      // }
     }
   };
 
@@ -38,7 +37,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="breweryShow">
+        <div className="login">
           <form onSubmit={this.handleSubmit}>
             Username{" "}
             <input

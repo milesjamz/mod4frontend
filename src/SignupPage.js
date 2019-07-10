@@ -2,30 +2,38 @@ import React from "react";
 
 class SignupPage extends React.Component {
   state = {
-    newUsername: "",
-    newPassword: "",
-    newConfirmPassword: ""
+    name: "",
+    username: "",
+    password: "",
+    avatar: ""
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    const newUser = this.state;
     fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(newUser)
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         localStorage.setItem("token", data.token);
       });
+    // fetch("http://localhost:3000/users")
+    //   .then(res => res.json())
+    //   .then(allUsers => {
+    //     const ourGuy = allUsers[allUsers.length-1]
     {
-      this.props.logIn();
-      // }
+      this.props.logIn(newUser);
     }
   };
+  // );
+  // };
 
   handleChange = e => {
     this.setState({
@@ -36,28 +44,38 @@ class SignupPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="breweryShow">
+        <div className="login">
           <form onSubmit={this.handleSubmit}>
+            Name{" "}
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleChange}
+              name="name"
+            />
+            <br />
             Username{" "}
             <input
               type="text"
-              value={this.state.newUsername}
+              value={this.state.username}
               onChange={this.handleChange}
               name="username"
             />
+            <br />
             Password{" "}
             <input
               type="password"
-              value={this.state.newPassword}
+              value={this.state.password}
               onChange={this.handleChange}
               name="password"
             />
-            Confirm Password{" "}
+            <br />
+            Avatar{" "}
             <input
-              type="password"
-              value={this.state.newConfirmPassword}
+              type="url"
+              value={this.state.avatar}
               onChange={this.handleChange}
-              name="confirmPassword"
+              name="avatar"
             />
             <br />
             <input type="submit" value="Sign Up!" />
