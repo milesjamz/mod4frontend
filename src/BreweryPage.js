@@ -1,4 +1,5 @@
 import React from "react";
+import ReviewForm from "./ReviewForm";
 
 const BreweryPage = props => {
   let thisOne = props.breweries.filter(
@@ -23,6 +24,7 @@ const BreweryPage = props => {
       <br />
       <br />
       <br />
+      <ReviewForm />
     </div>
   );
 };
