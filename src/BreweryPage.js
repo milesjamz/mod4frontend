@@ -1,13 +1,35 @@
 import React from "react";
 import ReviewForm from "./ReviewForm";
+import ReviewCard from "./ReviewCard";
 
 const BreweryPage = props => {
   let thisOne = props.breweries.find(
     brewery => brewery.id === parseInt(props.match.params.breweryId)
   );
-  // let rating = "🍺"
+
+  const addBreweryId = (review) => {
+    let newReview = {...review, brewery_id: thisOne.id}
+    props.postReview(newReview)
+  }
+
+  const renderBreweries = () => {
+    fetch('http://localhost:3000/reviews')
+      .then(resp => resp.json())
+      .then(reviewList => {
+
+        // console.log(reviewList)
+        // console.log(thisOne.id)
+        let theReviews = reviewList.filter(review => review.brewery_id === thisOne.id)
+        console.log(theReviews)
+        return theReviews.map((review, index) => {
+         return <ReviewCard key={index} thisReview={review} /> 
+            })
+          })
+    }
+
   return (
     <div className="breweryShow">
+    {renderBreweries()}
       <h2>Brewery Page</h2>
       <h3>{thisOne.name}</h3>
       <p>
@@ -23,8 +45,8 @@ const BreweryPage = props => {
       </a>
       <br />
       <br />
-      <br />
-      <ReviewForm />
+      <ReviewForm addBreweryId={addBreweryId} /><br />
+      
     </div>
   );
 };

@@ -4,10 +4,14 @@ class ReviewForm extends Component {
   state = {
     content: "",
     stars: 0,
-    avatar: ""
+    image: ""
   };
 
-  
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state)
+    this.props.addBreweryId(this.state)
+  }
 
   handleFormChange = e => {
     this.setState({
@@ -51,8 +55,13 @@ class ReviewForm extends Component {
             type="url"
             name="image"
             onChange={this.handleFormChange}
-            value={this.state.avatar}
+            value={this.state.image}
           />
+          <br />
+          <input
+            type="submit"
+            name="submit"
+            />
         </form>
       </div>
     );

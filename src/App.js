@@ -53,6 +53,23 @@ class App extends React.Component {
     // }
   }
 
+
+  postAReview = (review) => {
+      let newReview = {...review, user_id: this.state.current_user.id}
+    fetch("http://localhost:3000/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(newReview)
+    })
+      .then(res => res.json())
+      .then(response => {
+          console.log(response)
+      });
+  }
+
   // --- these two take info from search bar and apply to brewery list ---
   passedDownHandleSubmit = searchForm => {
     let myBrews = this.state.breweries.filter(brewery =>
@@ -137,7 +154,7 @@ class App extends React.Component {
             exact
             path="/brewery/:breweryId"
             render={routerProps => (
-              <BreweryPage breweries={this.state.breweries} {...routerProps} />
+              <BreweryPage postReview={this.postAReview} breweries={this.state.breweries} {...routerProps} />
             )}
           />
         ) : null}
