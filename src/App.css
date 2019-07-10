@@ -1,5 +1,28 @@
-.homepage {
+html {
   background-color: linen;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  max-height: 100px;
+  min-height: 100px; 
+  min-width: 250px;
+  max-width: 250px
+}
+
+.login {
+  float: all;
+  text-align: center;
+  border-style: solid;
+  background-color: lightblue; 
+  width: 30%;
+  margin-top: 10%;
+  margin-left: 30%;
 }
 
 .searchbar {
@@ -23,7 +46,6 @@
   transform: scale(1.1);
 }
 
-
 .breweryrender {
   text-align: center;
   background-color: lightblue;
@@ -34,6 +56,7 @@
   margin-top: 2%;
   float: left;
   overflow: auto;
+  padding: 15px;
 }
 
 .breweryShow {
@@ -41,9 +64,10 @@
   text-align: center;
   color: green;
   padding: 5px;
-  height: 50%;
+  height: 600px;
   width: 20%;
   float: right;
-  margin-top: 10%;
+  margin-top: 2%;
   margin-right: 15%;
+  overflow: auto;
 }

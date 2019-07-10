@@ -19,14 +19,12 @@ class App extends React.Component {
     allFilterBrews: [],
     dropdownTypes: [],
     dropdownTwoTypes: [],
-    username: "",
-    name: "",
-    avatar: ""
+    current_user: {}
   };
 
   // --- sets state with brewery data, and makes list of all the types of breweries ---
   componentDidMount() {
-    fetch(breweryAPI)
+    fetch("http://localhost:3000/breweries")
       .then(resp => resp.json())
       .then(listOBreweries => {
         this.setState({ breweries: listOBreweries });
@@ -38,21 +36,21 @@ class App extends React.Component {
         this.setState({ dropdownTwoTypes: [...new Set(myStates)] });
       });
 
-    if (localStorage.token) {
-      fetch("http://localhost:3000/profile", {
-        headers: {
-          Authorization: localStorage.token
-        }
-      })
-        .then(res => res.json())
-        .then(profileData => {
-          this.setState({
-            username: profileData.username,
-            name: profileData.name,
-            avatar: profileData.avatar
-          });
-        });
-    }
+    // if (localStorage.token) {
+    //   fetch("http://localhost:3000/profile", {
+    //     headers: {
+    //       Authorization: localStorage.token
+    //     }
+    //   })
+    //     .then(res => res.json())
+    //     .then(profileData => {
+    //       this.setState({
+    //         username: profileData.username,
+    //         name: profileData.name,
+    //         avatar: profileData.avatar
+    //       });
+    //     });
+    // }
   }
 
   // --- these two take info from search bar and apply to brewery list ---
@@ -65,7 +63,7 @@ class App extends React.Component {
       : this.setState({ firstFilterBrews: myBrews });
   };
 
-  // --- handles change in the drop down filter ---
+  // --- handles change in the brewery type drop down filter ---
   dropdownTypeChange = brewType => {
     const typeFilteredBreweries = this.state.breweries.filter(
       brewery => brewery.brewery_type === brewType
@@ -80,6 +78,8 @@ class App extends React.Component {
     });
   };
 
+  // --- handles change in the search by state drop down filter ---
+
   dropdownStateChange = brewType => {
     const stateFilteredBreweries = this.state.breweries.filter(
       brewery => brewery.state === brewType
@@ -89,8 +89,11 @@ class App extends React.Component {
       : this.setState({ secondFilterBrews: stateFilteredBreweries });
   };
 
-  logIn = () => {
+
+// --- log in, log out ---
+  logIn = (user) => {
     this.setState({ loggedIn: !this.state.loggedIn });
+    this.setState({ current_user: user })
   };
 
   logOut = () => {
@@ -102,7 +105,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="homepage">
-        {this.state.loggedIn ? <AltNavBar logOut={this.logOut} /> : <NavBar />}
+        {this.state.loggedIn ? <AltNavBar logOut={this.logOut} user={this.state.current_user} /> : <NavBar />}
 
         {this.state.loggedIn ? (
           <BreweryRender

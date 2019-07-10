@@ -23,10 +23,7 @@ class LoginPage extends React.Component {
       .then(data => {
         localStorage.setItem("token", data.token);
       });
-    {
-      this.props.logIn();
-      // }
-    }
+    { this.props.logIn() }
   };
 
   handleChange = e => {
@@ -38,7 +35,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="breweryShow">
+        <div className="login">
           <form onSubmit={this.handleSubmit}>
             Username{" "}
             <input

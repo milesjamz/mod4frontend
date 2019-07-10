@@ -43,7 +43,7 @@ class BreweryRender extends React.Component {
     this.setState({ searchField: e.target.value });
   };
 
-  // --- handles change in the drop down filter ---
+  // --- handles change in the drop down filters ---
   dropdownTypeChange = e => {
     this.setState({ dropdown: e.target.value });
     this.setState({ index: 0 });
@@ -60,6 +60,9 @@ class BreweryRender extends React.Component {
     }
   };
 
+
+// --- handles pagination ---
+
   showMore = () => {
     this.state.index >= this.state.maxIndex
       ? this.setState({ index: 0 })
@@ -67,6 +70,14 @@ class BreweryRender extends React.Component {
     console.log(this.state.index);
     console.log(this.state.maxIndex);
   };
+
+  showLess = () => {
+    this.state.index >= this.state.maxIndex
+      ? this.setState({ index: 0 })
+      : this.setState({ index: this.state.index - 50 });
+    console.log(this.state.index);
+    console.log(this.state.maxIndex);
+  }
 
   render() {
     return (
@@ -76,7 +87,7 @@ class BreweryRender extends React.Component {
           handleOnChange={this.handleOnChange}
           value={this.state.searchField}
         />
-
+        <button onClick={this.showLess}>Previous 50</button>
         <select
           value={this.state.dropdownState}
           onChange={this.dropdownStateChange}
@@ -100,7 +111,7 @@ class BreweryRender extends React.Component {
             </option>
           ))}
         </select>
-        <button onClick={this.showMore}>Show more Breweries!</button>
+        <button onClick={this.showMore}>Next 50</button>
         <ul>{this.showBreweries()}</ul>
       </div>
     );

@@ -5,7 +5,7 @@ const BreweryPage = props => {
   let thisOne = props.breweries.filter(
     brewery => brewery.id === parseInt(props.match.params.breweryId)
   );
-  // let star = "⭐"
+  // let rating = "🍺"
   return (
     <div className="breweryShow">
       <h2>Brewery Page</h2>
