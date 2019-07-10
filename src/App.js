@@ -6,6 +6,7 @@ import BreweryPage from "./BreweryPage";
 import BreweryRender from "./BreweryRender";
 import LoginPage from "./LoginPage";
 import AltNavBar from "./AltNavBar";
+import SignupPage from "./SignupPage";
 
 const breweryAPI = "http://localhost:3000/breweries";
 
@@ -115,11 +116,18 @@ class App extends React.Component {
             stateChangeProp={this.dropdownStateChange}
           />
         ) : (
-          <Route
-            exact
-            path="/login"
-            render={() => <LoginPage logIn={this.logIn} />}
-          />
+          <div>
+            <Route
+              exact
+              path="/login"
+              render={() => <LoginPage logIn={this.logIn} />}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={() => <SignupPage logIn={this.logIn} />}
+            />
+          </div>
         )}
         {this.state.loggedIn ? (
           <Route

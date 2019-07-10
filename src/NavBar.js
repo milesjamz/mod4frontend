@@ -5,7 +5,7 @@ import LoginPage from "./LoginPage";
 function NavBar(props) {
   return (
     <div className="navbar">
-      Welcome! <Link to="/login">LOGIN</Link> |<Link to="/login">SIGNUP</Link>|
+      Welcome! <Link to="/login">LOGIN</Link> |<Link to="/signup">SIGNUP</Link>|
       BREWERIES | CREDITS
     </div>
   );
