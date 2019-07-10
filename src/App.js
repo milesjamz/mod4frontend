@@ -24,7 +24,7 @@ class App extends React.Component {
 
   // --- sets state with brewery data, and makes list of all the types of breweries ---
   componentDidMount() {
-    fetch("http://localhost:3000/breweries")
+    fetch(breweryAPI)
       .then(resp => resp.json())
       .then(listOBreweries => {
         this.setState({ breweries: listOBreweries });
@@ -79,7 +79,6 @@ class App extends React.Component {
   };
 
   // --- handles change in the search by state drop down filter ---
-
   dropdownStateChange = brewType => {
     const stateFilteredBreweries = this.state.breweries.filter(
       brewery => brewery.state === brewType
@@ -90,7 +89,7 @@ class App extends React.Component {
   };
 
 
-// --- log in, log out ---
+  // --- log in, log out ---
   logIn = (user) => {
     this.setState({ loggedIn: !this.state.loggedIn });
     this.setState({ current_user: user })

@@ -37,7 +37,7 @@ class ReviewForm extends Component {
           <input
             type="range"
             min="0"
-            max="10"
+            max="6"
             step="1"
             name="stars"
             onChange={this.handleFormChange}
