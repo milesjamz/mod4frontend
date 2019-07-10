@@ -25,12 +25,14 @@ class LoginPage extends React.Component {
       });
     {
       this.props.logIn();
-    // }
+      // }
+    }
   };
-}
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   render() {
@@ -38,14 +40,14 @@ class LoginPage extends React.Component {
       <div>
         <div className="breweryShow">
           <form onSubmit={this.handleSubmit}>
-            Username
+            Username{" "}
             <input
               type="text"
               value={this.state.username}
               onChange={this.handleChange}
               name="username"
             />
-            Password
+            Password{" "}
             <input
               type="password"
               value={this.state.password}
@@ -54,9 +56,8 @@ class LoginPage extends React.Component {
             />
             <br />
             <input type="submit" value="Log in!" />
-          </form>
+          </form>{" "}
         </div>
-
       </div>
     );
   }
