@@ -1,4 +1,5 @@
 import React from "react";
+import ReviewForm from "./ReviewForm";
 
 ///	eventually, this will FETCH to the backend using routerprops to get the ID
 
@@ -23,6 +24,7 @@ const BreweryPage = props => {
       <br />
       <br />
       <br />
+      <ReviewForm />
     </div>
   );
 };
