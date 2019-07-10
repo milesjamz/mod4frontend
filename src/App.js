@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import "./App.css";
 import NavBar from "./NavBar";
 import BreweryPage from "./BreweryPage";
@@ -7,6 +12,7 @@ import BreweryRender from "./BreweryRender";
 import LoginPage from "./LoginPage";
 import AltNavBar from "./AltNavBar";
 import SignupPage from "./SignupPage";
+import ProfilePage from "./ProfilePage";
 
 const breweryAPI = "http://localhost:3000/breweries";
 
@@ -19,7 +25,7 @@ class App extends React.Component {
     allFilterBrews: [],
     dropdownTypes: [],
     dropdownTwoTypes: [],
-    current_user: {}
+    current_user: ""
   };
 
   // --- sets state with brewery data, and makes list of all the types of breweries ---
@@ -89,11 +95,10 @@ class App extends React.Component {
       : this.setState({ secondFilterBrews: stateFilteredBreweries });
   };
 
-
-// --- log in, log out ---
-  logIn = (user) => {
+  // --- log in, log out ---
+  logIn = user => {
     this.setState({ loggedIn: !this.state.loggedIn });
-    this.setState({ current_user: user })
+    this.setState({ current_user: user });
   };
 
   logOut = () => {
@@ -105,8 +110,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="homepage">
-        {this.state.loggedIn ? <AltNavBar logOut={this.logOut} user={this.state.current_user} /> : <NavBar />}
-
+        {this.state.loggedIn ? (
+          <AltNavBar logOut={this.logOut} user={this.state.current_user} />
+        ) : (
+          <NavBar />
+        )}
         {this.state.loggedIn ? (
           <BreweryRender
             breweries={this.state.breweries}
@@ -132,6 +140,14 @@ class App extends React.Component {
             />
           </div>
         )}
+
+        {this.state.current_user ? (
+          <Route
+            exact
+            path="/profile"
+            render={() => <ProfilePage user={this.state.current_user} />}
+          />
+        ) : null}
         {this.state.loggedIn ? (
           <Route
             exact
