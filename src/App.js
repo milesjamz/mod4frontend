@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import "./App.css";
 import NavBar from "./NavBar";
 import BreweryPage from "./BreweryPage";
@@ -7,6 +12,7 @@ import BreweryRender from "./BreweryRender";
 import LoginPage from "./LoginPage";
 import AltNavBar from "./AltNavBar";
 import SignupPage from "./SignupPage";
+import ProfilePage from "./ProfilePage";
 
 const breweryAPI = "http://localhost:3000/breweries";
 
@@ -58,6 +64,7 @@ class App extends React.Component {
         });
     }
   };
+
   // --- posts a review to the brewery show page ---
   postAReview = review => {
     let newReview = { ...review, user_id: this.state.current_user.id };
@@ -134,7 +141,6 @@ class App extends React.Component {
         ) : (
           <NavBar />
         )}
-
         {this.state.loggedIn ? (
           <BreweryRender
             breweries={this.state.breweries}
@@ -160,6 +166,14 @@ class App extends React.Component {
             />
           </div>
         )}
+
+        {this.state.current_user ? (
+          <Route
+            exact
+            path="/profile"
+            render={() => <ProfilePage user={this.state.current_user} />}
+          />
+        ) : null}
         {this.state.loggedIn ? (
           <Route
             exact

@@ -25,6 +25,24 @@ class LoginPage extends React.Component {
           alert("yo dawg... login with real shit. k thx.");
         }
       });
+
+    fetch("http://localhost:3000/users")
+      .then(res => res.json())
+      .then(allUsers => {
+        const selectedUser = allUsers.find(
+          user =>
+            user.username.toLowerCase() === this.state.username.toLowerCase()
+        );
+        if (selectedUser) {
+          {
+            this.props.logIn(selectedUser);
+          }
+        } else {
+          alert(
+            "The username you entered is not in our records. Please try again!"
+          );
+        }
+      });
   };
 
   handleChange = e => {
