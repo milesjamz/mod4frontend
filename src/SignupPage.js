@@ -10,7 +10,7 @@ class SignupPage extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const newUser = this.state
+    const newUser = this.state;
     fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
@@ -27,9 +27,11 @@ class SignupPage extends React.Component {
     //   .then(res => res.json())
     //   .then(allUsers => {
     //     const ourGuy = allUsers[allUsers.length-1]
-        {this.props.logIn(newUser)}
-         }
-      // );
+    {
+      this.props.logIn(newUser);
+    }
+  };
+  // );
   // };
 
   handleChange = e => {
