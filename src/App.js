@@ -19,10 +19,11 @@ class App extends React.Component {
     allFilterBrews: [],
     dropdownTypes: [],
     dropdownTwoTypes: [],
-    current_user: {}
+    current_user: {},
+    reviews: []
   };
 
-  // --- sets state with brewery data, and makes list of all the types of breweries ---
+  // --- sets state with brewery data, and makes a list of all the types of breweries ---
   componentDidMount() {
     fetch(breweryAPI)
       .then(resp => resp.json())
@@ -36,39 +37,46 @@ class App extends React.Component {
         this.setState({ dropdownTwoTypes: [...new Set(myStates)] });
       });
 
-    // if (localStorage.token) {
-    //   fetch("http://localhost:3000/profile", {
-    //     headers: {
-    //       Authorization: localStorage.token
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(profileData => {
-    //       this.setState({
-    //         username: profileData.username,
-    //         name: profileData.name,
-    //         avatar: profileData.avatar
-    //       });
-    //     });
-    // }
+    // --- fetch the user's profile with JWT Authorization ---
+    this.getProfileFromServer();
   }
 
-
-  postAReview = (review) => {
-      let newReview = {...review, user_id: this.state.current_user.id}
+  getProfileFromServer = () => {
+    if (localStorage.token) {
+      fetch("http://localhost:3000/profile", {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(profileData => {
+          console.log(profileData);
+          this.setState({
+            current_user: profileData,
+            loggedIn: true
+          });
+        });
+    }
+  };
+  // --- posts a review to the brewery show page ---
+  postAReview = review => {
+    let newReview = { ...review, user_id: this.state.current_user.id };
     fetch("http://localhost:3000/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify(newReview)
     })
       .then(res => res.json())
       .then(response => {
-          console.log(response)
+        this.setState({
+          reviews: response
+        });
       });
-  }
+  };
 
   // --- these two take info from search bar and apply to brewery list ---
   passedDownHandleSubmit = searchForm => {
@@ -105,23 +113,27 @@ class App extends React.Component {
       : this.setState({ secondFilterBrews: stateFilteredBreweries });
   };
 
-
   // --- log in, log out ---
-  logIn = (user) => {
-    this.setState({ loggedIn: !this.state.loggedIn });
-    this.setState({ current_user: user })
+  logIn = () => {
+    this.getProfileFromServer();
   };
 
   logOut = () => {
     this.setState({
       loggedIn: !this.state.loggedIn
     });
+    localStorage.clear();
   };
 
+  // --- render ---
   render() {
     return (
       <div className="homepage">
-        {this.state.loggedIn ? <AltNavBar logOut={this.logOut} user={this.state.current_user} /> : <NavBar />}
+        {this.state.loggedIn ? (
+          <AltNavBar logOut={this.logOut} user={this.state.current_user} />
+        ) : (
+          <NavBar />
+        )}
 
         {this.state.loggedIn ? (
           <BreweryRender
@@ -153,7 +165,11 @@ class App extends React.Component {
             exact
             path="/brewery/:breweryId"
             render={routerProps => (
-              <BreweryPage postReview={this.postAReview} breweries={this.state.breweries} {...routerProps} />
+              <BreweryPage
+                postReview={this.postAReview}
+                breweries={this.state.breweries}
+                {...routerProps}
+              />
             )}
           />
         ) : null}

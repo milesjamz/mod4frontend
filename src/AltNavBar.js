@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function AltNavBar(props) {
+  console.log(props);
   return (
     <div className="navbar">
       Welcome, {props.user.username}!

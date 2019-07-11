@@ -1,11 +1,10 @@
 import React from "react";
 
 class LoginPage extends React.Component {
-
   state = {
     username: "",
     password: ""
-  }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -19,19 +18,14 @@ class LoginPage extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        localStorage.setItem("token", data.token);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          this.props.logIn();
+        } else {
+          alert("yo dawg... login with real shit. k thx.");
+        }
       });
-    fetch("http://localhost:3000/users")
-      .then(res => res.json())
-      .then(allUsers => {
-        const selectedUser = allUsers.find(user => user.username.toLowerCase() === this.state.username.toLowerCase() )
-          if (selectedUser) {
-              {this.props.logIn(selectedUser)}  
-                      } else {
-              alert('The username you entered is not in our records. Please try again!')
-            }
-    })
-}
+  };
 
   handleChange = e => {
     this.setState({
@@ -50,6 +44,7 @@ class LoginPage extends React.Component {
               value={this.state.username}
               onChange={this.handleChange}
               name="username"
+              placeholder="Username"
             />
             Password{" "}
             <input
@@ -57,9 +52,10 @@ class LoginPage extends React.Component {
               value={this.state.password}
               onChange={this.handleChange}
               name="password"
+              placeholder="Password"
             />
             <br />
-            <input type="submit" value="Log in!" />
+            <input type="submit" value="Log In!" />
           </form>
         </div>
       </div>
