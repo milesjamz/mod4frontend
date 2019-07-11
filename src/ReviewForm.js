@@ -11,6 +11,7 @@ class ReviewForm extends Component {
     e.preventDefault();
     console.log(this.state)
     this.props.addBreweryId(this.state)
+    this.setState({content: '', stars: 0, image: ''})
   }
 
   handleFormChange = e => {

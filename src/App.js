@@ -7,6 +7,7 @@ import BreweryRender from "./BreweryRender";
 import LoginPage from "./LoginPage";
 import AltNavBar from "./AltNavBar";
 import SignupPage from "./SignupPage";
+import ProfilePage from "./ProfilePage";
 
 const breweryAPI = "http://localhost:3000/breweries";
 
@@ -37,6 +38,13 @@ class App extends React.Component {
         this.setState({ dropdownTwoTypes: [...new Set(myStates)] });
       });
 
+    // --- fetch all the reviews and set to current state ---  
+    fetch('http://localhost:3000/reviews')
+      .then(resp => resp.json())
+      .then(listOfReviews => {
+        this.setState({ reviews: listOfReviews })
+      })
+
     // --- fetch the user's profile with JWT Authorization ---
     this.getProfileFromServer();
   }
@@ -60,7 +68,7 @@ class App extends React.Component {
   };
   // --- posts a review to the brewery show page ---
   postAReview = review => {
-    let newReview = { ...review, user_id: this.state.current_user.id };
+    let newReview = { ...review, user_id: this.state.current_user.id, name: this.state.current_user.name};
     fetch("http://localhost:3000/reviews", {
       method: "POST",
       headers: {
@@ -72,8 +80,9 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(response => {
+        console.log(response)
         this.setState({
-          reviews: response
+          reviews: [...this.state.reviews, response]
         });
       });
   };
@@ -160,12 +169,20 @@ class App extends React.Component {
             />
           </div>
         )}
+        {this.state.current_user ? (
+          <Route
+            exact
+            path="/profile"
+            render={() => <ProfilePage user={this.state.current_user} reviews={this.state.reviews} />}
+          />
+        ) : null}
         {this.state.loggedIn ? (
           <Route
             exact
             path="/brewery/:breweryId"
             render={routerProps => (
               <BreweryPage
+                reviews={this.state.reviews}
                 postReview={this.postAReview}
                 breweries={this.state.breweries}
                 {...routerProps}
