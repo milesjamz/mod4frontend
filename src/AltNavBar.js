@@ -6,7 +6,7 @@ function AltNavBar(props) {
   return (
     <div>
       <div className="navbar">
-        Welcome!{" "}
+        Welcome {props.user.username}! 
         <Link to="/" onClick={props.logOut}>
           LOG OUT
         </Link>
