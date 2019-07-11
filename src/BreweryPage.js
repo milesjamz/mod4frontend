@@ -3,47 +3,53 @@ import ReviewForm from "./ReviewForm";
 import ReviewCard from "./ReviewCard";
 
 const BreweryPage = props => {
-  let thisOne = props.breweries.find(
+  
+  let thisBrewery = props.breweries.find(
     brewery => brewery.id === parseInt(props.match.params.breweryId)
   );
 
+  const thisBreweriesReviews = props.reviews.filter(
+      review => review.brewery_id === parseInt(props.match.params.breweryId)
+    )
+
+  const getAvg = () => {
+    let reviewStars = thisBreweriesReviews.map(review => review.stars)
+      const total = reviewStars.reduce((acc, c) => acc + c, 0);
+      if (total) {
+        return "This brewery has an average rating of " + (total / reviewStars.length).toFixed(2);
+      } else {
+        return "This brewery has no ratings yet. Add your own!"
+      }
+}
+
   const addBreweryId = review => {
-    let newReview = { ...review, brewery_id: thisOne.id };
+    let newReview = { ...review, brewery_id: thisBrewery.id };
     props.postReview(newReview);
   };
 
-  const renderBreweries = () => {
-    fetch("http://localhost:3000/reviews")
-      .then(resp => resp.json())
-      .then(reviewList => {
-        // console.log(reviewList)
-        // console.log(thisOne.id)
-        let theReviews = reviewList.filter(
-          review => review.brewery_id === thisOne.id
-        );
-        console.log(theReviews);
-        return theReviews.map((review, index) => {
-          return <ReviewCard key={index} thisReview={review} />;
-        });
-      });
+  const renderReviews = () => {
+      return thisBreweriesReviews.map(review => <ReviewCard thisReview={review} /> )
   };
-  if (thisOne) {
+
+  if (thisBrewery) {
     return (
       <div className="breweryShow">
-        {renderBreweries()}
-        <h2>Brewery Page</h2>
-        <h3>{thisOne.name}</h3>
+        <h2>{thisBrewery.name}</h2>
         <p>
-          Is a {thisOne.brewery_type} brewery located at {thisOne.street},{" "}
-          {thisOne.city}, {thisOne.state}.
+          Is a {thisBrewery.brewery_type} brewery located at {thisBrewery.street},{" "}
+          {thisBrewery.city}, {thisBrewery.state}.
         </p>
-        <a href={thisOne.website_url} target="_blank" rel="noopener noreferrer">
+        <p>
+          {getAvg()}!
+        </p>
+        <a href={thisBrewery.website_url} target="_blank" rel="noopener noreferrer">
           Visit their website!
         </a>
         <br />
         <br />
         <ReviewForm addBreweryId={addBreweryId} />
         <br />
+        {renderReviews()}
       </div>
     );
   } else {

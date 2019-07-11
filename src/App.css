@@ -1,5 +1,5 @@
 html {
-  background-color: linen;
+  background-color: #F6F6E3;
 }
 
 ul {
@@ -10,7 +10,7 @@ ul {
 
 textarea {
   max-height: 100px;
-  min-height: 100px; 
+  min-height: 100px;
   min-width: 250px;
   max-width: 250px
 }
@@ -22,15 +22,25 @@ textarea {
 }
 
 @keyframes spin {
-    0%  {-webkit-transform: rotate(0deg);}
-    100% {-webkit-transform: rotate(360deg);}   
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.reviewCard {
+  color: black;
+  padding: 10px;
 }
 
 .login {
   float: all;
   text-align: center;
   border-style: solid;
-  background-color: lightblue; 
+  background-color: lightblue;
   width: 30%;
   margin-top: 10%;
   margin-left: 30%;
@@ -60,7 +70,8 @@ textarea {
 .breweryrender {
   text-align: center;
   background-color: lightblue;
-  border-style: dashed;
+  border-style: line;
+  box-shadow: 5px 7px grey;
   height: 600px;
   width: 45%;
   margin-left: 10%;
@@ -71,7 +82,9 @@ textarea {
 }
 
 .breweryShow {
-  border-style: solid;
+  background-color: salmon;
+  border-style: line;
+  box-shadow: 5px 7px grey;
   text-align: center;
   color: green;
   padding: 5px;
