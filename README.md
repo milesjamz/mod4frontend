@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+This web application allows users to sign-up, log in and browse breweries in the United States by state and type. Users can filter breweries by state, type, or both. Finally, users can leave reviews for breweries visited by writing a comment and selecting a rating (out of 6).
 
-## Available Scripts
+## Technologies Used
+* ReactJS
+* Rails
+* JWT Authorization
+* CSS
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
+### Create Profile
+<p>To use Breweries USA a user must create a log in. By clicking on "SIGNUP" users can enter their, Name, Username, Password and Avatar.</p>
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Log In
+<p>After a user has created a profile with username and password, they can login by clicking on the "LOGIN" link.</p>
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Breweries
+<p>Once a user has logged in they are able to browse breweries in the USA. You can search by name, if you already know the name of a specific brewery. If you don't then you can browse the full list, or filter it by state, type of brewery or both. By clicking on the "Next 50" or "Previous 50" buttons users can see more breweries. </p>
 
-### `npm test`
+### Reviews
+<p> After clicking on a brewery, users can leave a review for that brewery. They can leave a review by typing in their comments and use a sliding scale to leave a numerical rating. Additionally, users can upload an image of their experience via a URL. </p>
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Profile
+<p>Users are able to edit their profile by clicking on "PROFILE" and then the "Edit" button. Once the user submits the changes it will update their profile with the updated information.</p>
